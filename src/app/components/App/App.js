@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 import './App.scss';
 
 class App extends Component {
-    render() {
-        return (
-            <div className="app">
-                movies
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="app">
+          movies
+      </div>
+    );
+  }
 }
 
 export default App;
