@@ -10,7 +10,7 @@ class Home extends Component {
     return (
       <div className="home">
         {this.props.movies.map(value => {
-          return <div key={value.id}>{value.name}</div>;
+          return <div key={value._id}>{value.title}</div>;
         })}
       </div>
     );
