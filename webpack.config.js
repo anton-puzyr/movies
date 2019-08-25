@@ -1,4 +1,5 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/app/index.js',
@@ -8,19 +9,11 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: [
-          'babel-loader',
-          'eslint-loader'
-        ],
+        use: ['babel-loader', 'eslint-loader'],
       },
       {
         test: /\.(s*)css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
-          'resolve-url-loader'
-        ],
+        use: ['style-loader', 'css-loader', 'sass-loader', 'resolve-url-loader'],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
@@ -44,6 +37,7 @@ module.exports = {
       hash: true,
       template: './public/index.html',
       favicon: './src/assets/icons/favicon.jpg',
-    })
+    }),
+    new Dotenv(),
   ],
 };

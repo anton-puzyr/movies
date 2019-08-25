@@ -8,7 +8,7 @@ import { getAllMovies } from '../../store/actions';
 import Home from '../../components/Home';
 import './App.scss';
 
-const { func } = PropTypes;
+const { func, array } = PropTypes;
 
 class App extends Component {
   componentDidMount() {
@@ -18,11 +18,13 @@ class App extends Component {
   }
 
   render() {
+    const { movies } = this.props;
+
     return (
       <div className="app">
         <Router history={history}>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={() => <Home movies={movies} />} />
           </Switch>
         </Router>
       </div>
@@ -32,8 +34,11 @@ class App extends Component {
 
 App.propTypes = {
   dispatch: func,
+  movies: array,
 };
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => ({
+  movies: state.movies.movies,
+});
 
 export default connect(mapStateToProps)(App);

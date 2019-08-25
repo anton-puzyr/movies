@@ -46,6 +46,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "css-loader": "^2.1.1",
+    "dotenv-webpack": "^1.7.0",
     "eslint": "^6.1.0",
     "eslint-loader": "^3.0.0",
     "eslint-plugin-import": "^2.18.2",
