@@ -1,4 +1,5 @@
 import axios from 'axios';
+import cogoToast from 'cogo-toast';
 
 import { pending, success, failure } from './handleActions';
 import {
@@ -8,6 +9,9 @@ import {
   IMPORT_FILE_PENDING,
   IMPORT_FILE_SUCCESS,
   IMPORT_FILE_ERROR,
+  ADD_MOVIE_PENDING,
+  ADD_MOVIE_SUCCESS,
+  ADD_MOVIE_ERROR,
 } from '../types';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -23,6 +27,21 @@ export const getAllMovies = () => dispatch => {
     })
     .catch(error => {
       dispatch(failure(error, GET_ALL_MOVIES_ERROR));
+    });
+};
+
+export const addMovie = data => dispatch => {
+  dispatch(pending(ADD_MOVIE_PENDING));
+
+  return axios
+    .post('/add-movie', data)
+    .then(response => {
+      dispatch(success(response.data, ADD_MOVIE_SUCCESS));
+      cogoToast.success('Successfully added', { position: 'top-right' });
+    })
+    .catch(error => {
+      dispatch(failure(error, ADD_MOVIE_ERROR));
+      cogoToast.error('Error while adding', { position: 'top-right' });
     });
 };
 

@@ -7,3 +7,8 @@ export const GET_ALL_MOVIES_ERROR = '[Get movies] GET_ALL_MOVIES_ERROR';
 export const IMPORT_FILE_PENDING = '[Import] IMPORT_FILE_PENDING';
 export const IMPORT_FILE_SUCCESS = '[Import] IMPORT_FILE_SUCCESS';
 export const IMPORT_FILE_ERROR = '[Import] IMPORT_FILE_ERROR';
+
+/* POST MOVIE */
+export const ADD_MOVIE_PENDING = '[Add movie] ADD_MOVIE_PENDING';
+export const ADD_MOVIE_SUCCESS = '[Add movie] ADD_MOVIE_PENDING';
+export const ADD_MOVIE_ERROR = '[Add movie] ADD_MOVIE_PENDING';

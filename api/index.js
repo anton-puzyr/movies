@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const movies = require('./routes');
 
@@ -8,6 +9,7 @@ const app = express();
 const port = 3000;
 const dbUrl = 'mongodb://localhost:27017/movies';
 
+app.use(bodyParser.json());
 app.use(cors());
 app.use('/', movies);
 

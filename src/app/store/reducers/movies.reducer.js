@@ -5,6 +5,9 @@ import {
   IMPORT_FILE_PENDING,
   IMPORT_FILE_SUCCESS,
   IMPORT_FILE_ERROR,
+  ADD_MOVIE_PENDING,
+  ADD_MOVIE_SUCCESS,
+  ADD_MOVIE_ERROR,
 } from '../types';
 
 const initialState = {
@@ -43,6 +46,22 @@ const movies = (state = initialState, action) => {
       pending: action.pending,
     };
   case IMPORT_FILE_ERROR:
+    return {
+      error: action.error,
+      pending: action.pending,
+    };
+  case ADD_MOVIE_PENDING:
+    return {
+      ...state,
+      pending: action.pending,
+    };
+  case ADD_MOVIE_SUCCESS:
+    return {
+      ...state,
+      movieAdded: action.data,
+      pending: action.pending,
+    };
+  case ADD_MOVIE_ERROR:
     return {
       error: action.error,
       pending: action.pending,

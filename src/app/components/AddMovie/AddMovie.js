@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import * as PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 import CustomInputField from '../../shared/CustomInputField';
 import CustomTextareaField from '../../shared/CustomTextareaField';
 import Button from '../../shared/Button';
+import { addMovie } from '../../store/actions';
 import {
   required,
   number,
-  minValue5,
+  minValue3,
   maxValue4,
 } from '../../shared/validators/formFieldsValidation';
 import './AddMovie.scss';
@@ -17,10 +20,17 @@ const { func } = PropTypes;
 
 class AddMovie extends Component {
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, dispatch } = this.props;
 
     const submit = form => {
-      console.log(form);
+      dispatch(
+        addMovie({
+          title: form.title,
+          releaseYear: form.year,
+          format: form.format,
+          stars: form.stars,
+        }),
+      );
     };
 
     return (
@@ -35,7 +45,7 @@ class AddMovie extends Component {
               type="text"
               name="title"
               placeholder="Enter title"
-              validate={[required, minValue5]}
+              validate={[required, minValue3]}
             />
           </div>
           <div className="input-group">
@@ -85,6 +95,9 @@ AddMovie.propTypes = {
   handleSubmit: func,
 };
 
-export default reduxForm({
-  form: 'add-movie',
-})(AddMovie);
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default compose(
+  connect(mapDispatchToProps),
+  reduxForm({ form: 'add-movie' }),
+)(AddMovie);
