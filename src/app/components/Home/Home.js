@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import SearchBar from '../SearchBar';
 import DeleteIcon from '../../../assets/icons/delete-icon.svg';
 import { deleteMovie } from '../../store/actions';
 import './Home.scss';
@@ -9,27 +10,35 @@ import './Home.scss';
 const { array, func } = PropTypes;
 
 class Home extends Component {
-  state = {
-    sort: false,
-    movies: [],
-  };
+  searchData = [];
 
-  static getDerivedStateFromProps(nextProps) {
-    const { movies } = nextProps;
+  constructor(props) {
+    super(props);
 
-    return { movies };
+    const { movies } = props;
+
+    this.state = {
+      sort: false,
+      movies,
+    };
+
+    this.searchData = movies;
   }
 
   render() {
     const { dispatch } = this.props;
-    const { movies } = this.state;
+    const { movies, sort } = this.state;
 
     const handleDelete = id => dispatch(deleteMovie(id));
 
     const sortAlphabetically = data => {
       data.sort((a, b) => a.title < b.title ? -1 : 1);
 
-      this.state.sort ? this.setState({ movies: data.reverse() }) : this.setState({ movies: data });
+      if (sort) {
+        this.setState({ movies: data });
+      } else {
+        this.setState({ movies: data.reverse() });
+      }
     };
 
     const handleSortButtonClick = () => {
@@ -37,8 +46,13 @@ class Home extends Component {
       sortAlphabetically(movies);
     };
 
+    const updateData = config => {
+      this.setState(config);
+    };
+
     return (
       <div className="home">
+        <SearchBar data={this.searchData} update={updateData} />
         <button onClick={handleSortButtonClick}>Sort Alphabetically</button>
         {movies.map(value => {
           return (
