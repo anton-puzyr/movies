@@ -5,6 +5,12 @@ import { Field, reduxForm } from 'redux-form';
 import CustomInputField from '../../shared/CustomInputField';
 import CustomTextareaField from '../../shared/CustomTextareaField';
 import Button from '../../shared/Button';
+import {
+  required,
+  number,
+  minValue5,
+  maxValue4,
+} from '../../shared/validators/formFieldsValidation';
 import './AddMovie.scss';
 
 const { func } = PropTypes;
@@ -29,6 +35,7 @@ class AddMovie extends Component {
               type="text"
               name="title"
               placeholder="Enter title"
+              validate={[required, minValue5]}
             />
           </div>
           <div className="input-group">
@@ -40,6 +47,7 @@ class AddMovie extends Component {
               type="text"
               name="year"
               placeholder="Enter release year"
+              validate={[required, number, maxValue4]}
             />
           </div>
           <div className="input-group">
@@ -51,6 +59,7 @@ class AddMovie extends Component {
               type="text"
               name="format"
               placeholder="Enter format"
+              validate={required}
             />
           </div>
           <div className="input-group">
