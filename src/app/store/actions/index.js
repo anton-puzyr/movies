@@ -1,7 +1,14 @@
 import axios from 'axios';
 
 import { pending, success, failure } from './handleActions';
-import { GET_ALL_MOVIES_PENDING, GET_ALL_MOVIES_SUCCESS, GET_ALL_MOVIES_ERROR } from '../types';
+import {
+  GET_ALL_MOVIES_PENDING,
+  GET_ALL_MOVIES_SUCCESS,
+  GET_ALL_MOVIES_ERROR,
+  IMPORT_FILE_PENDING,
+  IMPORT_FILE_SUCCESS,
+  IMPORT_FILE_ERROR,
+} from '../types';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -16,5 +23,18 @@ export const getAllMovies = () => dispatch => {
     })
     .catch(error => {
       dispatch(failure(error, GET_ALL_MOVIES_ERROR));
+    });
+};
+
+export const importFile = file => dispatch => {
+  dispatch(pending(IMPORT_FILE_PENDING));
+
+  return axios
+    .post('/import', file)
+    .then(response => {
+      dispatch(success(response.data, IMPORT_FILE_SUCCESS));
+    })
+    .catch(error => {
+      dispatch(failure(error, IMPORT_FILE_ERROR));
     });
 };
