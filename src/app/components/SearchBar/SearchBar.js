@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as PropTypes from 'prop-types';
 
+import CustomInputField from '../../shared/CustomInputField';
 import './SearchBar.scss';
 
 const { array, func, string } = PropTypes;
@@ -20,7 +21,14 @@ class SearchBar extends Component {
 
     return (
       <div className="search-bar">
-        <input type="text" placeholder={`Search movie by ${criteria}...`} onChange={handleChange} />
+        <div className="search-bar__input-group">
+          <label className="search-bar__input-group__label">Search by {criteria}</label>
+          <CustomInputField
+            type="text"
+            placeholder={`Search movie by ${criteria}...`}
+            onChange={handleChange}
+          />
+        </div>
       </div>
     );
   }

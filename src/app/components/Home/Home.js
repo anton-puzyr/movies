@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import Button from '../../shared/Button';
 import SearchBar from '../SearchBar';
 import DeleteIcon from '../../../assets/icons/delete-icon.svg';
 import { deleteMovie } from '../../store/actions';
@@ -52,24 +53,29 @@ class Home extends Component {
 
     return (
       <div className="home">
-        <label htmlFor="byTitle">Search by title</label>
-        <SearchBar data={this.searchData} update={updateData} criteria="title" name="byTitle" />
-        <label htmlFor="byStar">Search by stars</label>
-        <SearchBar data={this.searchData} update={updateData} criteria="stars" name="byStar" />
-        <button onClick={handleSortButtonClick}>Sort Alphabetically</button>
-        {movies.map(value => {
-          return (
-            <div key={value._id} className="movie-wrapper">
-              <div className="movie-wrapper__movie">
-                <p>{value.title}</p>
-                <p>{value.releaseYear}</p>
-                <p>{value.format}</p>
-                <p>{value.stars}</p>
+        <div className="home__search-section">
+          <SearchBar data={this.searchData} update={updateData} criteria="title" />
+          <SearchBar data={this.searchData} update={updateData} criteria="stars" />
+          <Button onClick={handleSortButtonClick} text="Sort by title" />
+        </div>
+        <div className="home__movies-list">
+          {movies.map(value => {
+            return (
+              <div key={value._id} className="movie-wrapper">
+                <div className="movie-wrapper__movie">
+                  <p>{value.title}</p>
+                  <p>{value.releaseYear}</p>
+                  <p>{value.format}</p>
+                  <p>{value.stars}</p>
+                </div>
+                <DeleteIcon
+                  className="movie-wrapper__icon"
+                  onClick={() => handleDelete(value._id)}
+                />
               </div>
-              <DeleteIcon className="movie-wrapper__icon" onClick={() => handleDelete(value._id)} />
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     );
   }

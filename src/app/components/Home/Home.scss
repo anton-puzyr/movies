@@ -1,19 +1,29 @@
 .home {
+  display: flex;
+  flex-direction: row;
   margin: 50px 0;
 
-  .movie-wrapper {
-    position: relative;
-    height: 200px;
-    width: 200px;
+  &__search-section {
+    padding-right: 50px;
+  }
 
-    &__movie {
-    }
+  &__movies-list {
+    border-left: 1px solid #ddd;
+    border-radius: 4px;
+    padding-left: 50px;
 
-    &__icon {
-      position: absolute;
-      top: 0;
-      right: 0;
-      cursor: pointer;
+    .movie-wrapper {
+      position: relative;
+
+      &__movie {
+      }
+
+      &__icon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+      }
     }
   }
 }

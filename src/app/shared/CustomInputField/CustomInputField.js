@@ -3,10 +3,10 @@ import * as PropTypes from 'prop-types';
 
 import './CustomInputField.scss';
 
-const { string, object } = PropTypes;
+const { string, object, func } = PropTypes;
 
 const CustomInputField = props => {
-  const { meta: { touched, error } = {}, placeholder, name, type, input } = props;
+  const { meta: { touched, error } = {}, placeholder, name, type, input, onChange } = props;
 
   return (
     <div className="input-wrapper">
@@ -15,6 +15,7 @@ const CustomInputField = props => {
         name={name}
         type={type}
         placeholder={placeholder}
+        onChange={onChange}
         {...input}
       />
       {touched && error && <div className="error">{error}</div>}
@@ -28,6 +29,7 @@ CustomInputField.propTypes = {
   type: string,
   input: object,
   meta: object,
+  onChange: func,
 };
 
 export default CustomInputField;
