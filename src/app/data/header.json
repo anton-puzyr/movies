@@ -3,6 +3,10 @@
     {
       "value": "Add movie",
       "link": "/add-movie"
+    },
+    {
+      "value": "Import movies",
+      "link": "/import"
     }
   ]
 }

@@ -8,6 +8,7 @@ import Home from '../../components/Home';
 import Layout from '../../components/Layout';
 import NotFound from '../../shared/NotFound';
 import AddMovie from '../../components/AddMovie';
+import ImportMovies from '../../components/ImportMovies';
 import License from '../../shared/Footer/License';
 import { getAllMovies } from '../../store/actions';
 
@@ -30,6 +31,7 @@ class App extends Component {
             <Route path="/" exact component={() => <Home movies={movies} />} />
             <Route path="/add-movie" component={AddMovie} />
             <Route path="/license" component={License} />
+            <Route path="/import" component={ImportMovies} />
             <Route component={NotFound} />
           </Switch>
         </Layout>
