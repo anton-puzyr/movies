@@ -9,13 +9,37 @@ import './Home.scss';
 const { array, func } = PropTypes;
 
 class Home extends Component {
+  state = {
+    sort: false,
+    movies: [],
+  };
+
+  static getDerivedStateFromProps(nextProps) {
+    const { movies } = nextProps;
+
+    return { movies };
+  }
+
   render() {
-    const { movies, dispatch } = this.props;
+    const { dispatch } = this.props;
+    const { movies } = this.state;
 
     const handleDelete = id => dispatch(deleteMovie(id));
 
+    const sortAlphabetically = data => {
+      data.sort((a, b) => a.title < b.title ? -1 : 1);
+
+      this.state.sort ? this.setState({ movies: data.reverse() }) : this.setState({ movies: data });
+    };
+
+    const handleSortButtonClick = () => {
+      this.setState({ sort: !this.state.sort });
+      sortAlphabetically(movies);
+    };
+
     return (
       <div className="home">
+        <button onClick={handleSortButtonClick}>Sort Alphabetically</button>
         {movies.map(value => {
           return (
             <div key={value._id} className="movie-wrapper">
