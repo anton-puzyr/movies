@@ -29,4 +29,11 @@ router.post('/add-movie', (req, res) => {
     .catch(error => res.send(error));
 });
 
+// @route DELETE /movies
+router.delete('/movies/:id', (req, res) => {
+  Movie.findOneAndDelete(req.params.id)
+    .then(result => res.send({ id: result._id }))
+    .catch(error => res.send(error));
+});
+
 module.exports = router;

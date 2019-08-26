@@ -7,6 +7,7 @@ import Home from '../../components/Home';
 import Layout from '../../components/Layout';
 import NotFound from '../../shared/NotFound';
 import AddMovie from '../../components/AddMovie';
+import License from '../../shared/Footer/License';
 
 const { func, array } = PropTypes;
 
@@ -18,6 +19,7 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/add-movie" component={AddMovie} />
+            <Route path="/license" component={License} />
             <Route component={NotFound} />
           </Switch>
         </Layout>

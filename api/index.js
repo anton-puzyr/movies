@@ -16,6 +16,6 @@ app.use('/', movies);
 mongoose
   .connect(dbUrl, { useNewUrlParser: true })
   .then(() => console.log('Connected to the database!'))
-  .catch(err => console.log(err));
+  .catch(err => console.log('Database connection error', err));
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

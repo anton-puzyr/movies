@@ -2,15 +2,15 @@
   "footerData": [
     {
       "value": "About",
-      "link": "#"
+      "link": "/about"
     },
     {
-      "value": "Contact",
-      "link": "#"
+      "value": "Architecture",
+      "link": "/architecture"
     },
     {
-      "value": "Privacy",
-      "link": "#"
+      "value": "License",
+      "link": "/license"
     }
   ]
 }

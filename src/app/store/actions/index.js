@@ -12,6 +12,9 @@ import {
   ADD_MOVIE_PENDING,
   ADD_MOVIE_SUCCESS,
   ADD_MOVIE_ERROR,
+  DELETE_MOVIE_PENDING,
+  DELETE_MOVIE_SUCCESS,
+  DELETE_MOVIE_ERROR,
 } from '../types';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -42,6 +45,21 @@ export const addMovie = data => dispatch => {
     .catch(error => {
       dispatch(failure(error, ADD_MOVIE_ERROR));
       cogoToast.error('Error while adding', { position: 'top-right' });
+    });
+};
+
+export const deleteMovie = id => dispatch => {
+  dispatch(pending(DELETE_MOVIE_PENDING));
+
+  return axios
+    .delete(`/movies/${id}`)
+    .then(response => {
+      dispatch(success(response.data, DELETE_MOVIE_SUCCESS));
+      cogoToast.success('Successfully deleted', { position: 'top-right' });
+    })
+    .catch(error => {
+      dispatch(failure(error, DELETE_MOVIE_ERROR));
+      cogoToast.error('Error while deleting', { position: 'top-right' });
     });
 };
 
