@@ -52,7 +52,10 @@ class Home extends Component {
 
     return (
       <div className="home">
-        <SearchBar data={this.searchData} update={updateData} />
+        <label htmlFor="byTitle">Search by title</label>
+        <SearchBar data={this.searchData} update={updateData} criteria="title" name="byTitle" />
+        <label htmlFor="byStar">Search by stars</label>
+        <SearchBar data={this.searchData} update={updateData} criteria="stars" name="byStar" />
         <button onClick={handleSortButtonClick}>Sort Alphabetically</button>
         {movies.map(value => {
           return (
