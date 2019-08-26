@@ -3,6 +3,9 @@ const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/app/index.js',
+  devServer: {
+    historyApiFallback: true,
+  },
   devtool: 'source-map',
   module: {
     rules: [

@@ -1,0 +1,13 @@
+.add-movie {
+  margin-top: 50px;
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+
+    &__label {
+      margin-bottom: 5px;
+    }
+  }
+}

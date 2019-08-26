@@ -1,33 +1,27 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from '../../config/history';
-import { connect } from 'react-redux';
 import * as PropTypes from 'prop-types';
 
-import { getAllMovies } from '../../store/actions';
 import Home from '../../components/Home';
-import './App.scss';
+import Layout from '../../components/Layout';
+import NotFound from '../../shared/NotFound';
+import AddMovie from '../../components/AddMovie';
 
 const { func, array } = PropTypes;
 
 class App extends Component {
-  componentDidMount() {
-    const { dispatch } = this.props;
-
-    dispatch(getAllMovies());
-  }
-
   render() {
-    const { movies } = this.props;
-
     return (
-      <div className="app">
-        <Router history={history}>
+      <Router history={history}>
+        <Layout>
           <Switch>
-            <Route exact path="/" component={() => <Home movies={movies} />} />
+            <Route path="/" exact component={Home} />
+            <Route path="/add-movie" component={AddMovie} />
+            <Route component={NotFound} />
           </Switch>
-        </Router>
-      </div>
+        </Layout>
+      </Router>
     );
   }
 }
@@ -37,8 +31,4 @@ App.propTypes = {
   movies: array,
 };
 
-const mapStateToProps = state => ({
-  movies: state.movies.movies,
-});
-
-export default connect(mapStateToProps)(App);
+export default App;
