@@ -20,12 +20,7 @@ router.post('/add-movie', (req, res) => {
   };
 
   Movie.create(movie)
-    .then(result =>
-      res.send({
-        status: 'success',
-        id: result._id,
-      }),
-    )
+    .then(result => res.send(result))
     .catch(error => res.send(error));
 });
 

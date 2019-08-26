@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
@@ -31,6 +31,7 @@ class AddMovie extends Component {
           stars: form.stars,
         }),
       );
+      dispatch(reset('add-movie'));
     };
 
     return (
