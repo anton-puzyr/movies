@@ -3,18 +3,12 @@ import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import DeleteIcon from '../../../assets/icons/delete-icon.svg';
-import { getAllMovies, deleteMovie } from '../../store/actions';
+import { deleteMovie } from '../../store/actions';
 import './Home.scss';
 
 const { array, func } = PropTypes;
 
 class Home extends Component {
-  componentDidMount() {
-    const { dispatch } = this.props;
-
-    dispatch(getAllMovies());
-  }
-
   render() {
     const { movies, dispatch } = this.props;
 
@@ -45,8 +39,6 @@ Home.propTypes = {
   dispatch: func,
 };
 
-const mapStateToProps = state => ({
-  movies: state.movies.movies,
-});
+const mapDispatchToProps = dispatch => ({ dispatch });
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapDispatchToProps)(Home);
