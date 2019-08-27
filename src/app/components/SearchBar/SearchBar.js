@@ -12,9 +12,13 @@ class SearchBar extends Component {
 
     const handleChange = event => {
       const value = event.target.value.toLowerCase();
-      const filteredData = data.filter(items =>
-        items[criteria].toLowerCase().includes(value.trim()),
-      );
+      const filteredData = data.filter(items => {
+        if (Array.isArray(items[criteria])) {
+          return items[criteria].find(e => e.toLowerCase().includes(value.trim()));
+        }
+
+        return items[criteria].toLowerCase().includes(value.trim());
+      });
 
       update({ movies: filteredData });
     };

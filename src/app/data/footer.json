@@ -1,10 +1,6 @@
 {
   "footerData": [
     {
-      "value": "About",
-      "link": "/about"
-    },
-    {
       "value": "Architecture",
       "link": "/architecture"
     },
