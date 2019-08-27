@@ -81,13 +81,13 @@ class Home extends Component {
               </p>
               <p>
                 <b>Stars: </b>
-                {movieToShow.stars}
+                {movieToShow.stars.map(item => item.trim()).join(', ')}
               </p>
             </div>
           }
         </div>
         <div className="home__movies-list">
-          {movies.length ?
+          {movies && movies.length ?
             movies.map(value => {
               return (
                 <div key={value._id} className="movie-wrapper" onClick={() => showMovie(value._id)}>
@@ -106,7 +106,7 @@ class Home extends Component {
                     </p>
                     <p>
                       <b>Stars: </b>
-                      {value.stars}
+                      {value.stars.map(item => item.trim()).join(', ')}
                     </p>
                   </div>
                   <DeleteIcon

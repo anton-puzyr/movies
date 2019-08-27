@@ -39,6 +39,7 @@ export const addMovie = data => dispatch => {
   return axios
     .post('/add-movie', data)
     .then(response => {
+      console.log(response);
       dispatch(success(response.data, ADD_MOVIE_SUCCESS));
       cogoToast.success('Successfully added', { position: 'top-right' });
     })
@@ -69,6 +70,7 @@ export const importFile = file => dispatch => {
   return axios
     .post('/import', file)
     .then(response => {
+      console.log(response.data);
       dispatch(success(response.data, IMPORT_FILE_SUCCESS));
       cogoToast.success('Successfully imported', { position: 'top-right' });
     })

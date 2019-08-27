@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const ObjectID = require('mongodb').ObjectID;
-const multer = require('multer');
-const parse = require('csv-parse');
-const transform = require('stream-transform');
+const fs = require('fs');
+const mkdirp = require('mkdirp');
+const mongoose = require('mongoose');
+
+const importPath = './api/uploads/file';
 
 const Movie = require('../models');
+const { sanitizeKey, windowed, upload } = require('../utils');
 
 // @route GET /movies
 router.get('/movies', (req, res) => {
@@ -36,19 +39,38 @@ router.delete('/movies/:id', (req, res) => {
 
 // @route POST /import
 router.post('/import', (req, res) => {
+  mkdirp('./api/uploads', dirError => {
+    if (dirError) throw dirError;
+    console.log('Uploads directory created');
+  });
+
   upload(req, res, err => {
-    err ? res.end('Error uploading file') : res.end('File is uploaded');
+    if (err) {
+      res.send('Error uploading file');
+    } else {
+      const lines = fs
+        .readFileSync(importPath)
+        .toString()
+        .split('\n')
+        .filter(el => el !== '');
+
+      const records = windowed(lines, 4)
+        .map(tuple =>
+          tuple.reduce(
+            (acc, keyValue) => {
+              const [key, value] = keyValue.split(':');
+              return Object.assign(acc, { [sanitizeKey(key)]: value.trim() });
+            },
+            { _id: new mongoose.mongo.ObjectId() },
+          ),
+        )
+        .map(record => Object.assign(record, { stars: record['stars'].split(', ') }));
+
+      Movie.insertMany(records, (error, docs) => {
+        error ? console.error(error) : res.send(docs);
+      });
+    }
   });
 });
-
-/** Configure file upload **/
-const storage = multer.diskStorage({
-  destination: (req, file, callback) => callback(null, './api/uploads'),
-  filename: (req, file, callback) => callback(null, file.fieldname + '.csv'),
-});
-
-const upload = multer({ storage }).single('file');
-
-/** Parse csv file **/
 
 module.exports = router;

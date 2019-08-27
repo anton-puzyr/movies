@@ -7,7 +7,7 @@ const MovieSchema = new Schema(
     title: String,
     releaseYear: Number,
     format: String,
-    stars: String,
+    stars: Array,
   },
   { versionKey: false },
 );

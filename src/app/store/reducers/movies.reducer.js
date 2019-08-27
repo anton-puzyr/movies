@@ -45,7 +45,7 @@ const movies = (state = initialState, action) => {
   case IMPORT_FILE_SUCCESS:
     return {
       ...state,
-      importedFile: action.data,
+      movies: [...action.data],
       pending: action.pending,
     };
   case IMPORT_FILE_ERROR:
