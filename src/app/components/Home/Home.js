@@ -53,7 +53,7 @@ class Home extends Component {
 
     const showMovie = id => {
       const movie = movies.filter(e => e._id === id);
-      console.log(movie);
+
       this.setState({ movieToShow: movie[0] });
     };
 
@@ -87,34 +87,40 @@ class Home extends Component {
           }
         </div>
         <div className="home__movies-list">
-          {movies.map(value => {
-            return (
-              <div key={value._id} className="movie-wrapper" onClick={() => showMovie(value._id)}>
-                <div className="movie-wrapper__movie">
-                  <p>
-                    <b>Title: </b>
-                    {value.title}
-                  </p>
-                  <p>
-                    <b>Release year: </b>
-                    {value.releaseYear}
-                  </p>
-                  <p>
-                    <b>Format: </b>
-                    {value.format}
-                  </p>
-                  <p>
-                    <b>Stars: </b>
-                    {value.stars}
-                  </p>
+          {movies.length ?
+            movies.map(value => {
+              return (
+                <div key={value._id} className="movie-wrapper" onClick={() => showMovie(value._id)}>
+                  <div className="movie-wrapper__movie">
+                    <p>
+                      <b>Title: </b>
+                      {value.title}
+                    </p>
+                    <p>
+                      <b>Release year: </b>
+                      {value.releaseYear}
+                    </p>
+                    <p>
+                      <b>Format: </b>
+                      {value.format}
+                    </p>
+                    <p>
+                      <b>Stars: </b>
+                      {value.stars}
+                    </p>
+                  </div>
+                  <DeleteIcon
+                    className="movie-wrapper__icon"
+                    onClick={() => handleDelete(value._id)}
+                  />
                 </div>
-                <DeleteIcon
-                  className="movie-wrapper__icon"
-                  onClick={() => handleDelete(value._id)}
-                />
-              </div>
-            );
-          })}
+              );
+            })
+            :
+            <div className="no-movies">
+              <p>Nothing found</p>
+            </div>
+          }
         </div>
       </div>
     );

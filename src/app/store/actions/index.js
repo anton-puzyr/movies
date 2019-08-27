@@ -70,8 +70,10 @@ export const importFile = file => dispatch => {
     .post('/import', file)
     .then(response => {
       dispatch(success(response.data, IMPORT_FILE_SUCCESS));
+      cogoToast.success('Successfully imported', { position: 'top-right' });
     })
     .catch(error => {
       dispatch(failure(error, IMPORT_FILE_ERROR));
+      cogoToast.error('Error while importing', { position: 'top-right' });
     });
 };

@@ -87,5 +87,14 @@
         z-index: 2;
       }
     }
+
+    .no-movies {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #c0c0c0;
+      width: 100%;
+      font-size: 18px;
+    }
   }
 }
