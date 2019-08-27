@@ -28,7 +28,7 @@ class AddMovie extends Component {
           title: form.title,
           releaseYear: form.year,
           format: form.format,
-          stars: form.stars,
+          stars: form.stars.split(','),
         }),
       );
       dispatch(reset('add-movie'));

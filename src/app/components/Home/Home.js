@@ -81,7 +81,7 @@ class Home extends Component {
               </p>
               <p>
                 <b>Stars: </b>
-                {movieToShow.stars}
+                {movieToShow.stars.map(item => item.trim()).join(', ')}
               </p>
             </div>
           }
@@ -106,7 +106,7 @@ class Home extends Component {
                     </p>
                     <p>
                       <b>Stars: </b>
-                      {value.stars}
+                      {value.stars.map(item => item.trim()).join(', ')}
                     </p>
                   </div>
                   <DeleteIcon
