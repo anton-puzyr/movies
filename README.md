@@ -53,5 +53,4 @@ like another process, to start the webpack dev server.
 
 Open [http://localhost:8080](http://localhost:8080) to view app in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+To start interact with content add movies choosing ```Add movie``` from the navigation bar or ```Import movies``` to import all movies to the database from file **sample_movies.txt**, laying under path ```/src/app/data``` of the root directory of a project. The added content will immediately appear on the home page.
