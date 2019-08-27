@@ -1,0 +1,16 @@
+{
+  "footerData": [
+    {
+      "value": "About",
+      "link": "/about"
+    },
+    {
+      "value": "Architecture",
+      "link": "/architecture"
+    },
+    {
+      "value": "License",
+      "link": "/license"
+    }
+  ]
+}

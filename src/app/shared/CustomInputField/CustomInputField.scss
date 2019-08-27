@@ -1,0 +1,49 @@
+.input-wrapper {
+  position: relative;
+
+  .custom-input {
+    height: 35px;
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+    line-height: 19px;
+    letter-spacing: 0.2px;
+    font-weight: 600;
+    color: #191919;
+    padding: 0 15px;
+    width: 300px;
+    caret-color: #000000;
+    cursor: default;
+
+    &:hover {
+      cursor: default;
+      transition: 0.2s ease-out;
+      border-color: #fdd835;
+    }
+
+    &:focus {
+      cursor: text;
+      outline: none;
+      border-color: #fdd835;
+    }
+
+    &::placeholder {
+      color: #999999;
+    }
+  }
+
+  .visibility {
+    position: absolute;
+    top: 30%;
+    right: 15px;
+    height: 16px;
+    width: 21px;
+    cursor: pointer;
+  }
+
+  .error {
+    position: absolute;
+    color: #d30c0a;
+    padding-top: 2px;
+    font-size: 15px;
+  }
+}
