@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const ObjectID = require('mongodb').ObjectID;
-const multer = require('multer');
-const parse = require('csv-parse');
-const transform = require('stream-transform');
+const fs = require('fs');
 
 const Movie = require('../models');
+const { sanitizeKey, windowed, upload } = require('../utils');
 
 // @route GET /movies
 router.get('/movies', (req, res) => {
@@ -37,18 +36,33 @@ router.delete('/movies/:id', (req, res) => {
 // @route POST /import
 router.post('/import', (req, res) => {
   upload(req, res, err => {
-    err ? res.end('Error uploading file') : res.end('File is uploaded');
+    if (err) {
+      res.end('Error uploading file');
+    } else {
+      res.end('File is uploaded');
+
+      const lines = fs
+        .readFileSync('./api/uploads/file')
+        .toString()
+        .split('\n')
+        .filter(el => el !== '');
+
+      const records = windowed(lines, 4)
+        .map(tuple =>
+          tuple.reduce((acc, keyValue) => {
+            const [key, value] = keyValue.split(':');
+            return Object.assign(acc, { [sanitizeKey(key)]: value.trim() });
+          }, {}),
+        )
+        .map(record => Object.assign(record, { stars: record['stars'].split(', ') }));
+
+      Movie.insertMany(records, (error, docs) =>
+        error
+          ? console.error(error)
+          : console.log('Multiple documents inserted to collection', docs),
+      );
+    }
   });
 });
-
-/** Configure file upload **/
-const storage = multer.diskStorage({
-  destination: (req, file, callback) => callback(null, './api/uploads'),
-  filename: (req, file, callback) => callback(null, file.fieldname + '.csv'),
-});
-
-const upload = multer({ storage }).single('file');
-
-/** Parse csv file **/
 
 module.exports = router;

@@ -87,7 +87,7 @@ class Home extends Component {
           }
         </div>
         <div className="home__movies-list">
-          {movies.length ?
+          {movies && movies.length ?
             movies.map(value => {
               return (
                 <div key={value._id} className="movie-wrapper" onClick={() => showMovie(value._id)}>
