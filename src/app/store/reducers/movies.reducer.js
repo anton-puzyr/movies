@@ -77,7 +77,7 @@ const movies = (state = initialState, action) => {
   case DELETE_MOVIE_SUCCESS:
     return {
       ...state,
-      movies: [...state.movies.filter(({ _id }) => _id !== action.data.id)],
+      movies: state.movies.filter(({ _id }) => _id !== action.data.id),
       pending: action.pending,
     };
   case DELETE_MOVIE_ERROR:
