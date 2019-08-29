@@ -32,7 +32,7 @@ router.post('/add-movie', (req, res) => {
 
 // @route DELETE /movies
 router.delete('/movies/:id', (req, res) => {
-  Movie.findOneAndDelete(req.params.id)
+  Movie.findOneAndDelete({ _id: ObjectID(req.params.id) })
     .then(result => res.send({ id: result._id }))
     .catch(error => res.send(error));
 });
