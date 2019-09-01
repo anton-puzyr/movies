@@ -15,6 +15,29 @@ const windowed = (arr, size) => {
   return result;
 };
 
+const hasNumber = myString => /\d/.test(myString);
+
+const calculateInvalidYears = (lines, string) => {
+  const invalidYears = [];
+
+  lines
+    .filter(value => value.includes(string))
+    .map(v => v.split(':'))
+    .forEach(item =>
+      item.map(currentValue => {
+        if (hasNumber(currentValue)) {
+          const num = Number.parseInt(currentValue);
+
+          if (num < 1850 || num > 2020) {
+            invalidYears.push(num);
+          }
+        }
+      }),
+    );
+
+  return invalidYears;
+};
+
 /** Configure file upload **/
 const storage = multer.diskStorage({
   destination: (req, file, callback) => callback(null, './api/uploads'),
@@ -23,4 +46,4 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage }).single('file');
 
-module.exports = { decapitalize, sanitizeKey, windowed, upload };
+module.exports = { decapitalize, sanitizeKey, windowed, upload, calculateInvalidYears };
