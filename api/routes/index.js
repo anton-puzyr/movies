@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const importPath = './api/uploads/file';
 
 const Movie = require('../models');
-const { sanitizeKey, windowed, upload } = require('../utils');
+const { sanitizeKey, windowed, upload, calculateInvalidYears } = require('../utils');
 
 // @route GET /movies
 router.get('/movies', (req, res) => {
@@ -54,21 +54,28 @@ router.post('/import', (req, res) => {
         .split('\n')
         .filter(el => el !== '');
 
-      const records = windowed(lines, 4)
-        .map(tuple =>
-          tuple.reduce(
-            (acc, keyValue) => {
-              const [key, value] = keyValue.split(':');
-              return Object.assign(acc, { [sanitizeKey(key)]: value.trim() });
-            },
-            { _id: new mongoose.mongo.ObjectId() },
-          ),
-        )
-        .map(record => Object.assign(record, { stars: record['stars'].split(', ') }));
+      const invalidYears = calculateInvalidYears(lines, 'Release Year');
 
-      Movie.insertMany(records, (error, docs) => {
-        error ? console.error(error) : res.send(docs);
-      });
+      if (invalidYears.length) {
+        res.send('Movie year should match the range "1850 - 2020"');
+      } else {
+        const records = windowed(lines, 4)
+          .map(tuple =>
+            tuple.reduce(
+              (acc, keyValue) => {
+                const [key, value] = keyValue.split(':');
+
+                return Object.assign(acc, { [sanitizeKey(key)]: value.trim() });
+              },
+              { _id: new mongoose.mongo.ObjectId() },
+            ),
+          )
+          .map(record => Object.assign(record, { stars: record['stars'].split(', ') }));
+
+        Movie.insertMany(records, (error, docs) => {
+          error ? console.error(error) : res.send(docs);
+        });
+      }
     }
   });
 });

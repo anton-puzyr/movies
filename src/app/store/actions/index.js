@@ -69,8 +69,12 @@ export const importFile = file => dispatch => {
   return axios
     .post('/import', file)
     .then(response => {
-      dispatch(success(response.data, IMPORT_FILE_SUCCESS));
-      cogoToast.success('Successfully imported', { position: 'top-right' });
+      if (Array.isArray(response.data)) {
+        dispatch(success(response.data, IMPORT_FILE_SUCCESS));
+        cogoToast.success('Successfully imported', { position: 'top-right' });
+      } else {
+        cogoToast.warn(response.data, { position: 'top-right' });
+      }
     })
     .catch(error => {
       dispatch(failure(error, IMPORT_FILE_ERROR));
