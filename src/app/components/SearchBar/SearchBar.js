@@ -7,12 +7,18 @@ import './SearchBar.scss';
 const { array, func, string } = PropTypes;
 
 class SearchBar extends Component {
+  searchData = [];
+
+  componentDidMount() {
+    this.searchData = this.props.data;
+  }
+
   render() {
-    const { data, update, criteria } = this.props;
+    const { update, criteria } = this.props;
 
     const handleChange = event => {
       const value = event.target.value.toLowerCase();
-      const filteredData = data.filter(items => {
+      const filteredData = this.searchData.filter(items => {
         if (Array.isArray(items[criteria])) {
           return items[criteria].find(e => e.toLowerCase().includes(value.trim()));
         }
@@ -20,7 +26,7 @@ class SearchBar extends Component {
         return items[criteria].toLowerCase().includes(value.trim());
       });
 
-      update({ movies: filteredData });
+      update({ movies: filteredData, filters: { [criteria]: value } });
     };
 
     return (
@@ -39,7 +45,7 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  data: array,
+  data: array.isRequired,
   update: func,
   criteria: string,
 };

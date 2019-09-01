@@ -13,6 +13,7 @@ import {
   number,
   minValue3,
   maxValue4,
+  yearRange,
 } from '../../shared/validators/formFieldsValidation';
 import './AddMovie.scss';
 
@@ -58,7 +59,7 @@ class AddMovie extends Component {
               type="text"
               name="year"
               placeholder="Enter release year"
-              validate={[required, number, maxValue4]}
+              validate={[required, number, maxValue4, yearRange]}
             />
           </div>
           <div className="input-group">
@@ -82,6 +83,7 @@ class AddMovie extends Component {
               type="text"
               name="stars"
               placeholder="Enter stars"
+              validate={required}
             />
           </div>
           <Button text="Add movie" type="submit" />

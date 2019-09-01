@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import cogoToast from 'cogo-toast';
 
 import Button from '../../shared/Button';
 import { importFile } from '../../store/actions';
@@ -17,7 +18,9 @@ class ImportMovies extends Component {
     const { dispatch } = this.props;
 
     const handleChange = event => {
-      this.setState({ selectedFile: event.target.files[0] });
+      event.target.files[0] && event.target.files[0].type === 'text/javascript'
+        ? cogoToast.warn('This file type is not allowed', { position: 'top-right' })
+        : this.setState({ selectedFile: event.target.files[0] });
     };
 
     const sendFile = () => {
